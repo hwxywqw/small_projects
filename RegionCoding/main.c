@@ -35,6 +35,8 @@ void decode(void){
     }
     out = find(now, arr.list);
     fwrite(&out, 1, 1, fout);
+    arr.freq_sum --;
+	if (arr.freq_sum == 0)  goto out;
     high = arr.list[out]-1;
     low = arr.list[out-1];
 
@@ -56,7 +58,7 @@ void decode(void){
                 if (fread(&byte.Byte, 1, 1, fin))
                 	byte.cnt = 8;
                 else{
-                	while (--arr.freq_sum > 0){
+                	while (1){
                 		R_all = high - low;
 				        R_flr = now  - low;
 				
@@ -64,12 +66,13 @@ void decode(void){
 				        tmp = (double)R_flr / (double)R_all * arr.scale;
 				        out = find(tmp, arr.list);
 				        fwrite(&out, 1, 1, fout);
+				        arr.freq_sum --;
+				        if (arr.freq_sum == 0)  goto out;
 				        
 				        tmp = low;
 				        low = tmp + (double)R_all / (double)arr.scale * (out != 0 ? arr.list[out-1] : 0) + 1;
 				        high= tmp + (double)R_all / (double)arr.scale * arr.list[out];
 					}
-			        goto out;
 				}
             }
         }
@@ -81,6 +84,7 @@ void decode(void){
         out = find(tmp, arr.list);
         fwrite(&out, 1, 1, fout);
         arr.freq_sum --;
+        if (arr.freq_sum == 0) break;
 
         // 上下区间�
 		tmp  = low;

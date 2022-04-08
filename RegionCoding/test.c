@@ -77,6 +77,16 @@ void encode(void){
 
 
     // 结尾输出残余的编码
+    tmp = (low >> 1) + (high >> 1);
+    for (int i = bitlength(tmp)-1; i >= 0; i --){
+        byte.cnt ++;
+        byte.Byte |= ((tmp >> i) & 1) << (8-byte.cnt);
+        if (byte.cnt == 8){// 8位一输出
+            fwrite(&byte.Byte, 1, 1, fout);
+            byte.cnt = 0;
+            byte.Byte = 0;
+        }
+    }
     if (byte.Byte != 0)
         fwrite(&byte.Byte, 1, 1, fout);
 
