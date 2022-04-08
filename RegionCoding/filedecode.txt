@@ -1,0 +1,15 @@
+class Fileinform:
+def __init__(self, filepath):
+self.path = filepath
+self.namein = os.path.basename(filepath)
+self.nameout = ""
+self.name = ""
+self.ext = ""
+pattern = r"^[a-zA-Z]+(?=.)"
+self.name = re.match(pattern, self.namein).group(0)
+self.nameout = self.name + "out.txt"
+pattern = r"(?<=.)[a-zA-Z]+?$"
+self.ext = re.search(pattern, self.namein).group(0)
+#include "FileCompress.h"
+void FileCompress::GetLine(FILE *src, unsigned char *buf, int size){
+assert(src),
