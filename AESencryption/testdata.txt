@@ -1,0 +1,97 @@
+0x00112233445566778899aabbccddeeff
+0x69c4e0d86a7b0430d8cdb78070b4c55a
+0xebc4e0d86a7b0493d8cda7807022c55a
+0x7fc4e0d86a7b04bed8cdaa8070d3c55a
+0xc9c4e0d86a7b04edd8cde88070e6c55a
+
+
+测试数据1
+
+明文:       00112233445566778899aabbccddeeff
+
+中间状态:   bdb52189f261b63d0b107c9e8b6e776e
+S盒代换 :   7ad5fda789ef4e272bca100b3d9ff59f
+正确密文:   69c4e0d86a7b0430d8cdb78070b4c55a
+错误密文:   ebc4e0d86a7b0493d8cda7807022c55a
+末轮密钥:   13111d7fe3944a17f307a78b4d2b30c5
+
+
+
+e       = 2e = 46
+
+e0      = 82 = 130
+c0      = 69 = 105
+X0      = bd = 189
+S(X0)   = 7a = 122
+2e      = 5c = 92
+X0+2e   = e1 = 225
+S(X0+2e)= f8 = 248
+S(X0)^e0= f8
+S(X0)^c0= 13
+
+
+
+e1      = 96 = 150
+c1      = b4 = 180
+X1      = 6e = 110
+S(X1)   = 9f = 159
+e       = 2e = 46
+X1+e    = 40 = 64
+S(X1+e) = 09 = 9
+S(X1)^e1= 09
+
+
+
+
+
+测试数据2
+
+明文:       0xc09cc2c65765be8a1815b605d4b7fc1f
+
+中间状态:   0x52b7a614dc8158d39e066fd70251e33b
+S盒代换 :   0x00a924fa860c6a660b6fa80e77d111e2
+正确密文:   0x1f29eb39b77112600ba3fc155851c009
+错误密文:   0x1ff4eb39c67112600ba3fc485851da09
+末轮密钥:   0x1f80cfc3317d780600cc541b2f80d1eb
+
+
+e       = 7d
+
+c0      = 29 = 41
+e0      = dd = 221
+X0      = b7 = 183
+S(X0)   = a9 = 169
+e       = 7d = 125
+X0+e    = ca = 202
+S(X0+e) = 74 = 116
+S(X0)^e0= 74
+
+
+
+
+密钥恢复测试数据1
+
+roundkey0  = 0xaeb6573144cf754b3aab40770a79f859
+roundkey1  = 0x19f79c565d38e91d6793a96a6dea5133
+roundkey2  = 0x9c265f6ac11eb677a68d1f1dcb674e2e
+roundkey3  = 0x1d096e75dc17d8027a9ac71fb1fd8931
+roundkey4  = 0x41aea9bd9db971bfe723b6a056de3f91
+roundkey5  = 0x4cdb280cd16259b33641ef13609fd082
+roundkey6  = 0xb7ab3bdc66c9626f50888d7c30175dfe
+roundkey7  = 0x07e780d8612ee2b731a66fcb01b13235
+roundkey8  = 0x4fc416a42eeaf4131f4c9bd81efda9ed
+roundkey9  = 0x001743d62efdb7c531b12c1d2f4c85f0
+roundkey10 = 0x1f80cfc3317d780600cc541b2f80d1eb
+
+(32位分组版)
+roundkey0  = 0x aeb65731 44cf754b 3aab4077 0a79f859
+roundkey1  = 0x 19f79c56 5d38e91d 6793a96a 6dea5133
+roundkey2  = 0x 9c265f6a c11eb677 a68d1f1d cb674e2e
+roundkey3  = 0x 1d096e75 dc17d802 7a9ac71f b1fd8931
+roundkey4  = 0x 41aea9bd 9db971bf e723b6a0 56de3f91
+roundkey5  = 0x 4cdb280c d16259b3 3641ef13 609fd082
+roundkey6  = 0x b7ab3bdc 66c9626f 50888d7c 30175dfe
+roundkey7  = 0x 07e780d8 612ee2b7 31a66fcb 01b13235
+roundkey8  = 0x 4fc416a4 2eeaf413 1f4c9bd8 1efda9ed
+roundkey9  = 0x 001743d6 2efdb7c5 31b12c1d 2f4c85f0
+roundkey10 = 0x 1f80cfc3 317d7806 00cc541b 2f80d1eb
