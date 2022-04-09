@@ -49,7 +49,7 @@ Sinv[256] = {
 group[p][j]代表当前查找的字节
 即向第p个字节注入错误, 错误能够扩散到的第j个字节。
 而min(group[p])代表该字节的分组，一共四组。
-第p个字节扩散到的第j个字节, 其e的系数为coeff[p][j]
+第p个字节扩散到的第j个字节, 其e的系数为coeff[j]
 */
 static const int group[16][4] = {
 {0, 13, 10, 7}, {4, 1, 14, 11}, {8, 5, 2,  15}, {12, 9, 6,  3},
@@ -89,11 +89,6 @@ void read_128(unsigned int *input){
 }
 
 unsigned int FunG(unsigned int word, int round){ 
-    /* 
-    对32位的处理,返回值
-    KeyExpansion_128的子调用
-    输入为: 下标为4K-1的元素, 和第j轮迭代
-    */
     unsigned int ans = 0;
     // RotWord
     word = ((word & 0xFFFFFF) << 8) | ((word & 0xFF000000) >> 24);
@@ -106,9 +101,6 @@ unsigned int FunG(unsigned int word, int round){
 }
 
 unsigned int* KeyRecover_128(unsigned int key[4]){
-    /*
-    128位AES的密钥生成,操作指针
-    */
     unsigned int roundkey[44];
     int i, j;
     for (i = 0; i < 4; i ++){
