@@ -6,25 +6,29 @@
 #include "coding.c"
 #define SCALE_LEN 16
 
-struct Region arr = {{0},{0},0,{0},1 << 20, 1 << 6}; // 1<<31,1<<23
+struct Region arr = {{0},{0},0,{0},1 << 28, 1 << 12}; // 1<<31,1<<23
 
 void encode(void){
     FILE *fin, *fout, *ftmp;
-    char namein[50]="filein.txt", nameout[50]="fileout.txt";
+//    char namein[50]="test2.jpg", nameout[50]="out.jpg";
+    char namein[50]="articleall.txt", nameout[50]="fileout.txt";
+//    char namein[50]="filein.txt", nameout[50]="fileout.txt";
     
 // 第一遍读文件: 创建映射区间
     // 构造函数
     fin = fopen(namein, "rb");
     unsigned char ch;
     // 文件读入
-    while (fread(&ch, sizeof(const char), 1, fin)){arr.freq[ch] ++;}
+    while (fread(&ch, sizeof(const char), 1, fin)){
+		arr.freq[ch] ++;
+	}
     // 频度统计
     for (int i = 0; i < 256; i ++){
         arr.freq_sum += arr.freq[i];
     }
     // 区间计算
     for (int i = 0; i < 256; i ++){
-        arr.list[i] = (i!=0 ? arr.list[i-1] : 0) + (arr.scale * arr.freq[i] / arr.freq_sum);
+        arr.list[i] = (i!=0 ? arr.list[i-1] : 0) + ((double)arr.scale / (double)arr.freq_sum * arr.freq[i]);
         // 调整最低区间
 //        if ((i != 0) && (arr.freq[i] != 0) && (arr.list[i] - arr.list[i-1] < 10)){
 //            arr.list[i] += 10 - (arr.list[i] - arr.list[i-1]);
@@ -41,6 +45,7 @@ void encode(void){
     for (int i = 0; i < 256; i ++){
         fprintf(ftmp, "%d:%llu\n", i, arr.list[i]);
     }
+    fclose(ftmp);
 
     
 
@@ -78,7 +83,7 @@ void encode(void){
 
     // 结尾输出残余的编码
     tmp = (low >> 1) + (high >> 1);
-    for (int i = bitlength(tmp)-1; i >= 0; i --){
+    for (int i = 47; i >= 0; i --){
         byte.cnt ++;
         byte.Byte |= ((tmp >> i) & 1) << (8-byte.cnt);
         if (byte.cnt == 8){// 8位一输出
@@ -90,8 +95,10 @@ void encode(void){
     if (byte.Byte != 0)
         fwrite(&byte.Byte, 1, 1, fout);
 
-    fclose(fin);
 	fclose(fout);
+	
+    fclose(fin);
+	
 }
 
 

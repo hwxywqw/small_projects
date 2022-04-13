@@ -6,12 +6,12 @@
 #include "coding.c"
 #define SCALE_LEN 16
 
-struct Region arr = {{0},{0},0,{0},1 << 20, 1 << 6}; // 1<<31,1<<23
+struct Region arr = {{0},{0},0,{0},1 << 28, 1 << 12}; // 1<<31,1<<23
 
 void decode(void){
     FILE *fin, *fout, *ftmp;
     char namein[50]="fileout.txt", nameout[50]="filedecode.txt";
-//	char namein[50]="out.bmp", nameout[50]="pic_original.bmp";
+//	char namein[50]="out.jpg", nameout[50]="decode.jpg";
 
     ftmp = fopen("filetmp.txt", "r");
     fscanf(ftmp, "%llu", &arr.freq_sum);
@@ -86,7 +86,7 @@ void decode(void){
         arr.freq_sum --;
         if (arr.freq_sum == 0) break;
 
-        // 上下区间�
+        // 上下区间�
 		tmp  = low;
         low  = tmp + (double)R_all / (double)arr.scale * (out != 0 ? arr.list[out-1] : 0) + 1;
         high = tmp + (double)R_all / (double)arr.scale * arr.list[out];

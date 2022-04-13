@@ -1,0 +1,2 @@
+certUtil -hashfile filedecode.txt SHA256
+certUtil -hashfile articleall.txt SHA256
