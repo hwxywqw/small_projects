@@ -41,6 +41,12 @@ unsigned int CycsLeft(unsigned int Word, int len, int n){return (Word>>(len-n))+
 unsigned int LinearF(unsigned int Word){return Word ^ CycsLeft(Word,32,2) ^CycsLeft(Word,32,10) ^ CycsLeft(Word,32,18) ^ CycsLeft(Word,32,24);}
 unsigned int LinearK(unsigned int Word){return Word ^ CycsLeft(Word,32,13) ^CycsLeft(Word,32,23);};
 unsigned int PermutationT(unsigned int Word, unsigned int (*Linear)(unsigned int)){return Linear(SubWord(Word));}
+unsigned int * XOR_128(unsigned int state[4], unsigned int key[4]){
+    for (int i = 0; i < 4; i ++){
+        state[i] ^= key[i];
+    }
+    return state;
+}
 
 unsigned int FuncF(unsigned int input[4], unsigned int rkey){
     return input[0] ^ PermutationT(input[1]^input[2]^input[3]^rkey, LinearF);
@@ -72,7 +78,7 @@ void SM4_encode(unsigned int input[4], unsigned int roundkey[32]){
 }
 
 void SM4_decode(unsigned int input[4], unsigned int roundkey[32]){
-    unsigned int temp[36];
+    unsigned int temp[36] = {0};
     for (int i = 0; i < 4; i ++){
         temp[i] = input[i];
     }
