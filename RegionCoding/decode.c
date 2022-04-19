@@ -10,8 +10,8 @@ struct Region arr = {{0},{0},0,{0},1 << 28, 1 << 12}; // 1<<31,1<<23
 
 void decode(void){
     FILE *fin, *fout, *ftmp;
-    char namein[50]="fileout.txt", nameout[50]="filedecode.txt";
-//	char namein[50]="out.jpg", nameout[50]="decode.jpg";
+//    char namein[50]="fileout.txt", nameout[50]="filedecode.txt";
+	char namein[50]="out.txt", nameout[50]="decode.pdf";
 
     ftmp = fopen("filetmp.txt", "r");
     fscanf(ftmp, "%llu", &arr.freq_sum);

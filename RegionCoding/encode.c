@@ -10,8 +10,8 @@ struct Region arr = {{0},{0},0,{0},1 << 28, 1 << 12}; // 1<<31,1<<23
 
 void encode(void){
     FILE *fin, *fout, *ftmp;
-//    char namein[50]="test2.jpg", nameout[50]="out.jpg";
-    char namein[50]="articleall.txt", nameout[50]="fileout.txt";
+    char namein[50]="test.pdf", nameout[50]="out.txt";
+//    char namein[50]="testfile_average.txt", nameout[50]="fileout.txt";
 //    char namein[50]="filein.txt", nameout[50]="fileout.txt";
     
 // 第一遍读文件: 创建映射区间
@@ -62,7 +62,7 @@ void encode(void){
     while (fread(&ch, 1, 1, fin)){
         R_all = high - low;
         tmp = low;
-        low = tmp + (double)R_all / (double)arr.scale * arr.list[ch-1] + 1;
+        low = tmp + (double)R_all / (double)arr.scale * (ch!=0 ? arr.list[ch-1] : 0) + 1;
         high= tmp + (double)R_all / (double)arr.scale * arr.list[ch];
 
         while ((high ^ low) >> 47 == 0){// 从高位到低位
